@@ -2,9 +2,9 @@
 // versions:
 // 	protoc-gen-go v1.30.0
 // 	protoc        v4.24.0
-// source: internal/queueBroker/pb/queueBroker.proto
+// source: internal/queueBroker/proto/queueBroker.proto
 
-package pb
+package queueBroker
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"

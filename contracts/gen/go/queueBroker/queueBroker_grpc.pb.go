@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             v4.24.0
-// source: internal/queueBroker/pb/queueBroker.proto
+// source: internal/queueBroker/proto/queueBroker.proto
 
-package pb
+package queueBroker
 
 import (
 	context "context"
@@ -142,5 +142,5 @@ var QueueService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "internal/queueBroker/pb/queueBroker.proto",
+	Metadata: "internal/queueBroker/proto/queueBroker.proto",
 }
