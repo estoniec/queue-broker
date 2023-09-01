@@ -1,0 +1,13 @@
+services:
+  api-gateway:
+    build: api-gateway/
+    ports:
+      - "3000:3000"
+    depends_on:
+      - queue-srvc
+
+
+  queue-srvc:
+    build: queue-srvc/
+    ports:
+      - "50051:50051"

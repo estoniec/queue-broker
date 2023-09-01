@@ -16,7 +16,7 @@ var once sync.Once
 func GetConfig() *Config {
 	instance = &Config{}
 	once.Do(func() {
-		viper.AddConfigPath("./internal/config/envs")
+		viper.AddConfigPath("../app/internal/config/envs")
 		viper.SetConfigName("dev")
 		viper.SetConfigType("env")
 

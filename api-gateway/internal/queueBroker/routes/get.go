@@ -1,8 +1,8 @@
 package routes
 
 import (
-	"api-gateway/internal/queueBroker/pb"
 	"context"
+	pb "github.com/estoniec/queue-broker/contracts/gen/go/queueBroker"
 	"github.com/gofiber/fiber/v2"
 	"log/slog"
 	"strconv"

@@ -2,7 +2,7 @@ package queue
 
 import (
 	"api-gateway/internal/config"
-	"api-gateway/internal/queueBroker/pb"
+	pb "github.com/estoniec/queue-broker/contracts/gen/go/queueBroker"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	"log/slog"

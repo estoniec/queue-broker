@@ -1,9 +1,9 @@
 package routes
 
 import (
-	"api-gateway/internal/queueBroker/pb"
 	"context"
 	"fmt"
+	pb "github.com/estoniec/queue-broker/contracts/gen/go/queueBroker"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -16,18 +16,25 @@ func Put(ctx *fiber.Ctx, c pb.QueueServiceClient) error {
 		return fmt.Errorf("can't add new value to queue without value")
 	}
 
-	_, err := c.Put(context.Background(), &pb.PutRequest{
+	res, err := c.Put(context.Background(), &pb.PutRequest{
 		Category: category,
 		Item:     v,
 	})
 
 	if err != nil {
-		ctx.Status(404)
+		fmt.Println(res)
+		ctx.Status(int(res.Status))
 		ctx.Send(nil)
 		return err
 	}
 
-	ctx.Status(200)
+	if res.Error != "" {
+		ctx.Status(int(res.Status))
+		ctx.Send(nil)
+		return fmt.Errorf(res.Error)
+	}
+
+	ctx.Status(int(res.Status))
 	ctx.Send(nil)
 	return nil
 }

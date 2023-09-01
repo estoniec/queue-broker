@@ -1,46 +1,22 @@
 package main
 
 import (
-	"fmt"
-	"google.golang.org/grpc"
-	"log"
+	"golang.org/x/net/context"
 	"log/slog"
-	"net"
+	"queue-srvc/app"
 	"queue-srvc/internal/config"
-	"queue-srvc/internal/pb"
-	"queue-srvc/internal/services"
-	"sync"
-	"time"
 )
 
 func main() {
-	c := config.GetConfig()
+	cfg := config.GetConfig()
 
-	lis, err := net.Listen("tcp", c.Port)
+	ctx := context.Background()
 
+	a := app.NewApp(cfg)
+
+	err := a.Run(ctx)
 	if err != nil {
-		slog.Error("Failed to listing:", err)
+		slog.Error(err.Error())
+		return
 	}
-
-	fmt.Println("Auth Svc on", c.Port)
-
-	s := services.Queue{
-		Queue: &services.SafeMapQueue{
-			Mu:    sync.RWMutex{},
-			Queue: make(map[string]map[int]string),
-		},
-		QueuePeoples: &services.SafeMapQueuePeoples{
-			Mu:           sync.RWMutex{},
-			QueuePeoples: make(map[string]map[int]time.Time),
-		},
-	}
-
-	grpcServer := grpc.NewServer()
-
-	pb.RegisterQueueServiceServer(grpcServer, &s)
-
-	if err := grpcServer.Serve(lis); err != nil {
-		log.Fatalln("Failed to serve:", err)
-	}
-
 }
