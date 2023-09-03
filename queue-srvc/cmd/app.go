@@ -3,7 +3,7 @@ package main
 import (
 	"golang.org/x/net/context"
 	"log/slog"
-	"queue-srvc/app"
+	"queue-srvc/internal/app"
 	"queue-srvc/internal/config"
 )
 
