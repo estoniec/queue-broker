@@ -3,20 +3,25 @@ package v1
 import (
 	"api-gateway/internal/config"
 	dto2 "api-gateway/internal/domain/queue/dto"
-	"api-gateway/internal/domain/queue/service"
+	"context"
 	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"log/slog"
 	"strconv"
 )
 
+type Service interface {
+	Get(context context.Context, input dto2.GetQueueInput) (dto2.GetQueueOutput, error)
+	Put(context context.Context, input dto2.PutQueueInput) (dto2.PutQueueOutput, error)
+}
+
 type Handler struct {
-	service service.Service
+	service Service
 	app     *fiber.App
 	config  *config.Config
 }
 
-func NewHandler(service service.Service, app *fiber.App, config *config.Config) *Handler {
+func NewHandler(service Service, app *fiber.App, config *config.Config) *Handler {
 	return &Handler{
 		service: service,
 		app:     app,

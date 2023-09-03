@@ -32,7 +32,7 @@ func NewApp(c *config.Config) *App {
 	app := fiber.New()
 
 	service := service2.NewService(client)
-	handler := v1.NewHandler(*service, app, c)
+	handler := v1.NewHandler(service, app, c)
 	handler.Register()
 
 	return &App{
