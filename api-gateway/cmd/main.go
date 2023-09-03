@@ -1,18 +1,15 @@
 package main
 
 import (
+	"api-gateway/internal/app"
 	"api-gateway/internal/config"
-	queue "api-gateway/internal/queueBroker"
-	"github.com/gofiber/fiber/v2"
-	"log/slog"
+	"context"
 )
 
 func main() {
+	context := context.Background()
 	c := config.GetConfig()
 
-	app := fiber.New()
-
-	queue.RegisterRoutes(app, c)
-
-	slog.Error(app.Listen(c.Port).Error())
+	app := app.NewApp(c)
+	app.Run(context)
 }
